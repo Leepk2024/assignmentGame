@@ -36,6 +36,9 @@ class Block(Basic):
     def collide(self):
         # ============================================
         # TODO: Implement an event when block collides with a ball
+        self.alive = False
+        self.color = (0,0,0)
+        
         pass
 
 
@@ -69,12 +72,12 @@ class Ball(Basic):
         # ============================================
         # TODO: Implement an event when the ball hits a block
         for block in blocks:
-            if self.rect.colliderect(block.rect):
+            if block.alive and self.rect.colliderect(block.rect):
                 if self.rect.bottom > block.rect.top or self.rect.top < block.rect.bottom:
                     self.dir = 360 - self.dir
                 elif self.rect.right > block.rect.left or self.rect.left < block.rect.right:
                     self.dir = 180 - self.dir
-            block.collide()
+                block.collide()
         pass
 
     def collide_paddle(self, paddle: Paddle) -> None:
