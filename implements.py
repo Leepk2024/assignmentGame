@@ -68,6 +68,8 @@ class Ball(Basic):
     def collide_block(self, blocks: list):
         # ============================================
         # TODO: Implement an event when the ball hits a block
+        displayX = config.display_dimension[0]
+        displayY = config.display_dimension[1]
         pass
 
     def collide_paddle(self, paddle: Paddle) -> None:
@@ -76,13 +78,11 @@ class Ball(Basic):
 
     def hit_wall(self):
         # ============================================
-        # TODO: Implement a service that bounces off when the ball hits the wall
         pass
 
         # 좌우 벽 충돌
-        displayX = config.display_dimension[0]
-        displayY = config.display_dimension[1]
-        if self.rect.colliderect(Rect([0, 0, config.wall_width, displayY])) or self.rect.colliderect(Rect([displayX, 0, displayX- config.wall_width, displayY])):
+        
+        if self.rect.left <= config.wall_width or self.rect.right >= config.display_dimension[0] - config.wall_width:
             self.dir = 180 - self.dir
 
         # 상단 벽 충돌
