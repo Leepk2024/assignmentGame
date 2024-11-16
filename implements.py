@@ -81,8 +81,13 @@ class Ball(Basic):
         # 좌우 벽 충돌
         
         # 상단 벽 충돌
+
     
     def alive(self):
         # ============================================
-        # TODO: Implement a service that returns whether the ball is alive or not
-        pass
+        mapHeight = config.display_dimension[1]
+        ballPosition = self.rect.top
+
+        # 공의 상단 위치가 맵 밖으로 나가면 alive False 반환
+        print(mapHeight > ballPosition)
+        return mapHeight > ballPosition
