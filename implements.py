@@ -81,13 +81,14 @@ class Ball(Basic):
         # 좌우 벽 충돌
         
         # 상단 벽 충돌
-
+        # 벽 최고 높이
+        
     
     def alive(self):
         # ============================================
-        mapHeight = config.display_dimension[1]
-        ballPosition = self.rect.top
+        paddlePosition = config.paddle_pos[1]
+        ballPosition = config.ball_pos[1]
 
-        # 공의 상단 위치가 맵 밖으로 나가면 alive False 반환
-        print(mapHeight > ballPosition)
-        return mapHeight > ballPosition
+        # 공의 위치가 맵 밖으로 나가면 alive False 반환
+        print(paddlePosition > ballPosition)
+        return paddlePosition > ballPosition
