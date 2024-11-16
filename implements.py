@@ -68,8 +68,13 @@ class Ball(Basic):
     def collide_block(self, blocks: list):
         # ============================================
         # TODO: Implement an event when the ball hits a block
-        displayX = config.display_dimension[0]
-        displayY = config.display_dimension[1]
+        for block in blocks:
+            if self.rect.colliderect(block.rect):
+                if self.rect.bottom > block.rect.top or self.rect.top < block.rect.bottom:
+                    self.dir = 360 - self.dir
+                elif self.rect.right > block.rect.left or self.rect.left < block.rect.right:
+                    self.dir = 180 - self.dir
+            block.collide()
         pass
 
     def collide_paddle(self, paddle: Paddle) -> None:
