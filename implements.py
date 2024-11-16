@@ -78,18 +78,22 @@ class Ball(Basic):
         # ============================================
         # TODO: Implement a service that bounces off when the ball hits the wall
         pass
+
         # 좌우 벽 충돌
-        
+        displayX = config.display_dimension[0]
+        displayY = config.display_dimension[1]
+        if self.rect.colliderect(Rect([0, 0, config.wall_width, displayY])) or self.rect.colliderect(Rect([displayX, 0, displayX- config.wall_width, displayY])):
+            self.dir = 180 - self.dir
+
         # 상단 벽 충돌
         # 벽 최고 높이
-    
+        if self.rect.top < 1:
+            self.dir = 360 - self.dir
+
     def alive(self):
         # ============================================
         paddlePosition = config.paddle_pos[1]
         ballPosition = self.rect.top
 
         # 공의 위치가 맵 밖으로 나가면 alive False 반환
-        print(paddlePosition > ballPosition)
-        print(paddlePosition)
-        print(ballPosition)
         return paddlePosition > ballPosition
