@@ -58,3 +58,6 @@ collision_limit = len(colors) - 1
 
 # Total number of life.
 life = 3
+
+# List for items
+ITEMS = []
