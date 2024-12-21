@@ -104,3 +104,5 @@ class Item(Basic):
 
     def move(self):
         self.rect.y += self.speed
+    def move(self):
+        self.rect.y += self.speed
