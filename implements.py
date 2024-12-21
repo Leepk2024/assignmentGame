@@ -8,7 +8,7 @@ import pygame
 from pygame.locals import Rect, K_LEFT, K_RIGHT
 
 
-https://github.com/Leepk2024/assignmentGame/pull/5/conflict?name=run.py&ancestor_oid=c8c713c3369d85a78cd4d3392ff514aa00437cb3&base_oid=89a4e9a6b86ddfa925f920ea12c2f2c1a16597bc&head_oid=2b274d4e937fc2649f295f4d0ea6ad5ce2ced46dclass Basic:
+class Basic:
     def __init__(self, color: tuple, speed: int = 0, pos: tuple = (0, 0), size: tuple = (0, 0)):
         self.color = color
         self.rect = Rect(pos[0], pos[1], size[0], size[1])
@@ -34,7 +34,6 @@ class Block(Basic):
         pygame.draw.rect(surface, self.color, self.rect)
     
     def collide(self):
-
         self.alive = False
         self.color = (0,0,0)
         # 아이템 생성 (20% 확률로 빨간공 또는 파란공)
@@ -42,7 +41,6 @@ class Block(Basic):
             item_color = random.choice([config.ball_fever_color, (0, 0, 255)])
             item = Item(item_color, self.rect.centerx, self.rect.centery)
             config.ITEMS.append(item)
-
 
 
 class Paddle(Basic):
@@ -105,4 +103,4 @@ class Item(Basic):
         pygame.draw.ellipse(surface, self.color, self.rect)
 
     def move(self):
-        self.rect.y += self.speed 
+        self.rect.y += self.speed
