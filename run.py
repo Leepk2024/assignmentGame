@@ -1,5 +1,5 @@
 import sys
-from implements import Basic, Block, Paddle, Ball
+from implements import Basic, Block, Paddle, Ball, Item
 import config
 
 import pygame
@@ -44,6 +44,7 @@ def tick():
     global paddle
     global ball1
     global start
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -68,6 +69,28 @@ def tick():
         ball.hit_wall()
         if ball.alive() == False:
             BALLS.remove(ball)
+
+    # 아이템 충돌 처리
+    for item in config.ITEMS[:]:
+        item.move()
+        if item.rect.colliderect(paddle.rect):
+            if item.color == config.ball_fever_color:  # 빨간 공을 먹었을 때
+                # 새로운 공을 paddle 위에서 생성
+                new_ball = Ball((paddle.rect.centerx, paddle.rect.top - 20))
+                BALLS.append(new_ball)
+            config.ITEMS.remove(item)  # 아이템 제거
+
+        # 아이템이 화면을 벗어나면 제거
+        if item.rect.top > config.display_dimension[1]:
+            config.ITEMS.remove(item)
+
+    # 모든 공이 떨어지면 life 1 감소
+    if len(BALLS) == 0:
+        if life > 1:
+            life -= 1
+            ball1 = Ball()
+            BALLS = [ball1]
+            start = False
 
 
 def main():
@@ -116,6 +139,10 @@ def main():
                 ball.draw(surface)
             for block in BLOCKS:
                 block.draw(surface)
+
+        # 아이템 그리기
+        for item in config.ITEMS:
+            item.draw(surface)
 
         pygame.display.update()
         fps_clock.tick(config.fps)
