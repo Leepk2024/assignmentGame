@@ -78,11 +78,13 @@ def tick():
                 # 새로운 공을 paddle 위에서 생성
                 new_ball = Ball((paddle.rect.centerx, paddle.rect.top - 20))
                 BALLS.append(new_ball)
+
             config.ITEMS.remove(item)  # 아이템 제거
 
         # 아이템이 화면을 벗어나면 제거
         if item.rect.top > config.display_dimension[1]:
             config.ITEMS.remove(item)
+
 
     # 모든 공이 떨어지면 life 1 감소
     if len(BALLS) == 0:
