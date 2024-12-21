@@ -1,5 +1,5 @@
 import sys
-from implements import Basic, Block, Paddle, Ball
+from implements import Basic, Block, Paddle, Ball, Item
 import config
 
 import pygame
@@ -69,6 +69,17 @@ def tick():
         if ball.alive() == False:
             BALLS.remove(ball)
 
+    # 아이템 충돌 처리
+    for item in config.ITEMS[:]:
+        item.move()
+        if item.rect.colliderect(paddle.rect):
+            # paddle이 아이템을 먹어도 아무 효과가 없도록 변경
+            config.ITEMS.remove(item)  # 아이템 제거
+
+        # 아이템이 화면을 벗어나면 제거
+        if item.rect.top > config.display_dimension[1]:
+            config.ITEMS.remove(item)
+
 
 def main():
     global life
@@ -116,6 +127,10 @@ def main():
                 ball.draw(surface)
             for block in BLOCKS:
                 block.draw(surface)
+
+        # 아이템 그리기
+        for item in config.ITEMS:
+            item.draw(surface)
 
         pygame.display.update()
         fps_clock.tick(config.fps)
