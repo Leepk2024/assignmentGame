@@ -58,6 +58,7 @@ collision_limit = len(colors) - 1
 # Total number of life.
 life = 3
 
+
 # 아이템을 저장할 리스트 추가
 ITEMS = []  # 아이템들을 저장하는 리스트
 

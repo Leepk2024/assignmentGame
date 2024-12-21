@@ -34,13 +34,13 @@ class Block(Basic):
         pygame.draw.rect(surface, self.color, self.rect)
     
     def collide(self):
-        # 20% 확률로 아이템을 생성
-        if random.random() < 0.2:
-            item_type = random.choice(["red_ball", "blue_ball"])
-            item = Item(item_type, self.rect.center)
-            config.ITEMS.append(item)
         self.alive = False
-        self.color = (0, 0, 0)
+        self.color = (0,0,0)
+        # 아이템 생성 (20% 확률로 빨간공 또는 파란공)
+        if random.random() < 0.2:
+            item_color = random.choice([config.ball_fever_color, (0, 0, 255)])
+            item = Item(item_color, self.rect.centerx, self.rect.centery)
+            config.ITEMS.append(item)
 
 
 class Paddle(Basic):
@@ -89,25 +89,20 @@ class Ball(Basic):
             self.dir = 360 - self.dir
 
     def alive(self):
-        return config.paddle_pos[1] > self.rect.top
+        paddlePosition = config.paddle_pos[1]
+        ballPosition = self.rect.top
+        return paddlePosition > ballPosition
 
 
 class Item(Basic):
-    def __init__(self, item_type: str, pos: tuple):
-        # 아이템 종류에 따라 색상 변경
-        if item_type == "red_ball":
-            color = (255, 0, 0)
-        elif item_type == "blue_ball":
-            color = (0, 0, 255)
-        super().__init__(color, 0, pos, config.item_size)
-        self.item_type = item_type
-        self.fall_speed = 3  # 아이템이 떨어지는 속도
+    def __init__(self, color: tuple, x: int, y: int):
+        super().__init__(color, 3, (x, y), config.item_size)
+        self.color = color
 
     def draw(self, surface):
         pygame.draw.ellipse(surface, self.color, self.rect)
 
     def move(self):
-        # 아이템이 떨어지는 로직
-        self.rect.top += self.fall_speed
-
-    
+        self.rect.y += self.speed
+    def move(self):
+        self.rect.y += self.speed

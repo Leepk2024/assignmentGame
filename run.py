@@ -44,6 +44,7 @@ def tick():
     global paddle
     global ball1
     global start
+
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
             pygame.quit()
@@ -73,12 +74,25 @@ def tick():
     for item in config.ITEMS[:]:
         item.move()
         if item.rect.colliderect(paddle.rect):
-            # paddle이 아이템을 먹어도 아무 효과가 없도록 변경
+            if item.color == config.ball_fever_color:  # 빨간 공을 먹었을 때
+                # 새로운 공을 paddle 위에서 생성
+                new_ball = Ball((paddle.rect.centerx, paddle.rect.top - 20))
+                BALLS.append(new_ball)
+
             config.ITEMS.remove(item)  # 아이템 제거
 
         # 아이템이 화면을 벗어나면 제거
         if item.rect.top > config.display_dimension[1]:
             config.ITEMS.remove(item)
+
+
+    # 모든 공이 떨어지면 life 1 감소
+    if len(BALLS) == 0:
+        if life > 1:
+            life -= 1
+            ball1 = Ball()
+            BALLS = [ball1]
+            start = False
 
 
 def main():
