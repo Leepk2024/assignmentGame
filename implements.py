@@ -34,12 +34,13 @@ class Block(Basic):
         pygame.draw.rect(surface, self.color, self.rect)
     
     def collide(self):
-        # ============================================
-        # TODO: Implement an event when block collides with a ball
+        # 20% 확률로 아이템을 생성
+        if random.random() < 0.2:
+            item_type = random.choice(["red_ball", "blue_ball"])
+            item = Item(item_type, self.rect.center)
+            config.ITEMS.append(item)
         self.alive = False
-        self.color = (0,0,0)
-        
-        pass
+        self.color = (0, 0, 0)
 
 
 class Paddle(Basic):
@@ -69,8 +70,6 @@ class Ball(Basic):
         pygame.draw.ellipse(surface, self.color, self.rect)
 
     def collide_block(self, blocks: list):
-        # ============================================
-        # TODO: Implement an event when the ball hits a block
         for block in blocks:
             if block.alive and self.rect.colliderect(block.rect):
                 if self.rect.bottom > block.rect.top or self.rect.top < block.rect.bottom:
@@ -78,30 +77,37 @@ class Ball(Basic):
                 elif self.rect.right > block.rect.left or self.rect.left < block.rect.right:
                     self.dir = 180 - self.dir
                 block.collide()
-        pass
 
     def collide_paddle(self, paddle: Paddle) -> None:
         if self.rect.colliderect(paddle.rect):
             self.dir = 360 - self.dir + random.randint(-5, 5)
 
     def hit_wall(self):
-        # ============================================
-        pass
-
-        # 좌우 벽 충돌
-        
         if self.rect.left <= config.wall_width or self.rect.right >= config.display_dimension[0] - config.wall_width:
             self.dir = 180 - self.dir
-
-        # 상단 벽 충돌
-        # 벽 최고 높이
         if self.rect.top < 1:
             self.dir = 360 - self.dir
 
     def alive(self):
-        # ============================================
-        paddlePosition = config.paddle_pos[1]
-        ballPosition = self.rect.top
+        return config.paddle_pos[1] > self.rect.top
 
-        # 공의 위치가 맵 밖으로 나가면 alive False 반환
-        return paddlePosition > ballPosition
+
+class Item(Basic):
+    def __init__(self, item_type: str, pos: tuple):
+        # 아이템 종류에 따라 색상 변경
+        if item_type == "red_ball":
+            color = (255, 0, 0)
+        elif item_type == "blue_ball":
+            color = (0, 0, 255)
+        super().__init__(color, 0, pos, config.item_size)
+        self.item_type = item_type
+        self.fall_speed = 3  # 아이템이 떨어지는 속도
+
+    def draw(self, surface):
+        pygame.draw.ellipse(surface, self.color, self.rect)
+
+    def move(self):
+        # 아이템이 떨어지는 로직
+        self.rect.top += self.fall_speed
+
+    

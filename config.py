@@ -18,7 +18,6 @@ gameboard_height_coefficient = 3
 
 display_dimension = (600, 800)
 
-
 center_x = display_dimension[0] / 2
 center_y = display_dimension[1] / 2
 
@@ -39,7 +38,7 @@ ball_size = (20, 20)
 
 # Setting for items
 item_size = (20, 20)
-one_more_prob = 0.3
+one_more_prob = 0.2  # 20% 확률로 아이템 생성
 fever_prob = 0.1
 add_score_prob = 0.1
 paddle_long_prob = 0.1
@@ -58,3 +57,7 @@ collision_limit = len(colors) - 1
 
 # Total number of life.
 life = 3
+
+# 아이템을 저장할 리스트 추가
+ITEMS = []  # 아이템들을 저장하는 리스트
+
