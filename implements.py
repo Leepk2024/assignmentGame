@@ -77,6 +77,7 @@ class Ball(Basic):
                 elif self.rect.right > block.rect.left or self.rect.left < block.rect.right:
                     self.dir = 180 - self.dir
                 block.collide()
+                blocks.remove(block)
 
     def collide_paddle(self, paddle: Paddle) -> None:
         if self.rect.colliderect(paddle.rect):
