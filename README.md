@@ -29,7 +29,6 @@
 
 ## 주요 기능
 
-|Home|Forest|Store|Room|
 |---|---|---|---|
 |![image](https://github.com/user-attachments/assets/2e0ed67d-1bd7-4b8a-b058-a498bbc51220)|![image](https://github.com/user-attachments/assets/6b3c1e4f-5820-4903-94f0-8ef8b79b9885)|![image](https://github.com/user-attachments/assets/5840857c-a396-49de-a577-098639dc69cd)|![image](https://github.com/user-attachments/assets/a5ca5e4c-3aee-43ed-9834-d20f1088e5c2)|
 |블록을 부수면 나오는 두 개의 아이템|붉은 공은 공의 개수를 하나 추가함|화면의 모든 공이 아래로 떨어지면 Life가 깎임|모든 블록을 부수면 Clear!|
